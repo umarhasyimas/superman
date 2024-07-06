@@ -17,7 +17,9 @@ $(document).ready(function() {
                     width: pieceWidth,
                     height: pieceHeight,
                     backgroundImage: `url(${imageUrl})`,
-                    backgroundPosition: `-${j * pieceWidth}px -${i * pieceHeight}px`
+                    backgroundPosition: `-${j * pieceWidth}px -${i * pieceHeight}px`,
+                    top: i * pieceHeight,
+                    left: j * pieceWidth
                 }).data({
                     row: i,
                     col: j,
@@ -89,15 +91,20 @@ $(document).ready(function() {
     };
 
     function shufflePuzzle() {
+        const positions = [];
         $('.puzzle-piece').each(function() {
-            const randomTop = Math.floor(Math.random() * (puzzleContainer.height() - pieceHeight));
-            const randomLeft = Math.floor(Math.random() * (puzzleContainer.width() - pieceWidth));
+            positions.push({
+                top: $(this).css('top'),
+                left: $(this).css('left')
+            });
+        });
+
+        positions.sort(() => Math.random() - 0.5);
+
+        $('.puzzle-piece').each(function(index) {
             $(this).css({
-                top: randomTop,
-                left: randomLeft
-            }).data({
-                row: null,
-                col: null
+                top: positions[index].top,
+                left: positions[index].left
             });
         });
     }
