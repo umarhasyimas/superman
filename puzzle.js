@@ -2,7 +2,7 @@ $(document).ready(function() {
     const rows = 8;
     const cols = 8;
     const puzzleContainer = $('#puzzle-container');
-    const imageUrl = 'https://ik.imagekit.io/superman0my0id/superman.my.id/Kneel-Before-Zod-4-1-scaled.jpg?updatedAt=1712314591087'; // Replace with your image URL
+    const imageUrl = 'https://ik.imagekit.io/superman0my0id/superman.my.id/kneel-before-zod-4-preview-jpg.jpg?updatedAt=1712314594337'; // Replace with your image URL
     const pieceWidth = puzzleContainer.width() / cols;
     const pieceHeight = puzzleContainer.height() / rows;
     let correctPieces = 0;
@@ -31,12 +31,19 @@ $(document).ready(function() {
         // Shuffle pieces
         pieces = shuffleArray(pieces);
 
-        // Append shuffled pieces to the container
-        pieces.forEach(piece => {
+        // Append shuffled pieces to the container in a grid
+        pieces.forEach((piece, index) => {
+            const i = Math.floor(index / cols);
+            const j = index % cols;
+
+            piece.css({
+                gridRowStart: i + 1,
+                gridColumnStart: j + 1
+            });
+
             puzzleContainer.append(piece);
             piece.draggable({
                 containment: '#puzzle-container',
-                grid: [pieceWidth, pieceHeight],
                 start: function() {
                     $(this).addClass('dragging');
                 },
@@ -44,8 +51,7 @@ $(document).ready(function() {
                     $(this).removeClass('dragging');
                     checkCorrectPosition($(this));
                 }
-            });
-            piece.droppable({
+            }).droppable({
                 accept: '.puzzle-piece',
                 drop: function(event, ui) {
                     const dropped = ui.helper;
@@ -101,7 +107,12 @@ $(document).ready(function() {
 
     function checkCorrectPosition(piece) {
         const data = piece.data();
-        if (data.row === data.correctRow && data.col === data.correctCol) {
+        const position = piece.position();
+
+        const row = Math.round(position.top / pieceHeight);
+        const col = Math.round(position.left / pieceWidth);
+
+        if (row === data.correctRow && col === data.correctCol) {
             if (!piece.hasClass('correct')) {
                 piece.addClass('correct');
                 correctPieces++;
