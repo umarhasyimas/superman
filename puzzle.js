@@ -2,7 +2,7 @@ $(document).ready(function() {
     const rows = 8;
     const cols = 8;
     const puzzleContainer = $('#puzzle-container');
-    const imageUrl = 'https://ik.imagekit.io/superman0my0id/superman.my.id/kneel-before-zod-4-preview-jpg.jpg?updatedAt=1712314594337'; // Replace with your image URL
+    const imageUrl = 'https://ik.imagekit.io/superman0my0id/superman.my.id/Kneel-Before-Zod-4-1-scaled.jpg?updatedAt=1712314591087'; // Replace with your image URL
     const pieceWidth = puzzleContainer.width() / cols;
     const pieceHeight = puzzleContainer.height() / rows;
     let correctPieces = 0;
@@ -15,6 +15,8 @@ $(document).ready(function() {
         for (let i = 0; i < rows; i++) {
             for (let j = 0; j < cols; j++) {
                 const piece = $('<div class="puzzle-piece"></div>').css({
+                    width: pieceWidth,
+                    height: pieceHeight,
                     backgroundImage: `url(${imageUrl})`,
                     backgroundPosition: `-${j * pieceWidth}px -${i * pieceHeight}px`
                 }).data({
@@ -31,19 +33,15 @@ $(document).ready(function() {
         // Shuffle pieces
         pieces = shuffleArray(pieces);
 
-        // Append shuffled pieces to the container in a grid
-        pieces.forEach((piece, index) => {
-            const i = Math.floor(index / cols);
-            const j = index % cols;
-
-            piece.css({
-                gridRowStart: i + 1,
-                gridColumnStart: j + 1
-            });
-
+        // Append shuffled pieces to the container
+        pieces.forEach(piece => {
             puzzleContainer.append(piece);
-            piece.draggable({
+            piece.css({
+                top: piece.data('row') * pieceHeight,
+                left: piece.data('col') * pieceWidth
+            }).draggable({
                 containment: '#puzzle-container',
+                grid: [pieceWidth, pieceHeight],
                 start: function() {
                     $(this).addClass('dragging');
                 },
