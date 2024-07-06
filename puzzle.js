@@ -2,7 +2,7 @@ $(document).ready(function() {
     const rows = 4;
     const cols = 4;
     const puzzleContainer = $('#puzzle-container');
-    const imageUrl = 'https://via.placeholder.com/500'; // Replace with your image URL
+    const imageUrl = 'https://ik.imagekit.io/superman0my0id/superman.my.id/Kneel-Before-Zod-4-1-scaled.jpg?updatedAt=1712314591087'; // Replace with your image URL
     const pieceWidth = puzzleContainer.width() / cols;
     const pieceHeight = puzzleContainer.height() / rows;
     let correctPieces = 0;
