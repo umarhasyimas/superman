@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Puzzle</title>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <style>
+        #puzzle-container {
+            width: 500px;
+            height: 500px;
+            position: relative;
+            border: 1px solid #000;
+        }
+        .puzzle-piece {
+            position: absolute;
+            border: 1px solid #000;
+        }
+        .dragging {
+            border-color: red;
+        }
+    </style>
+</head>
+<body>
+    <div id="puzzle-container"></div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+    <script src="puzzle.js"></script>
+</body>
+</html>
