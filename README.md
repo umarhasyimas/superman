@@ -1,4 +1,4 @@
-Image Puzzle Game
+<h1>Image Puzzle Game</h1>
 
 An interactive image puzzle game where users can drag and drop puzzle pieces to complete the image. The pieces snap into place within a grid and turn red when being moved. The game notifies the user when the puzzle is completed correctly.
 
